@@ -2,6 +2,10 @@ Template.body.helpers({
   
   news: function() {
     return News.find();
+  },
+
+  questions: function() {
+  	return Questions.find();
   }
   
 });

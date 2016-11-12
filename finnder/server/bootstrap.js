@@ -2,7 +2,9 @@
 Meteor.startup(function() {
 
   // if there are no polls available create sample data
-  if (News.find().count() === 0) {
+  // if (News.find().count() === 0) {
+
+    //LOAD EVERYTIME
 
     // create sample polls
     var sampleNews = [
@@ -85,6 +87,45 @@ Meteor.startup(function() {
       News.insert(news);
     });
 
-  }
+  // }
+
+
+  // if there are no polls available create sample data
+  // if (Questions.find().count() === 0) {
+
+
+    //LOAD EVERYTIME
+
+    // create sample polls
+    var sampleQuestions = [
+      {
+        index: 0,
+        question: "Q1",
+        answer: "Neutral",
+        reason: "R1"
+      },
+      {
+        index: 1,
+        question: "Q2",
+        answer: "Bearish",
+        reason: "R2"
+      },
+      {
+        index: 2,
+        question: "Q3",
+        answer: "Bearish",
+        reason: "R3"
+      }
+    ];
+
+    // loop over each sample poll and insert into database
+    _.each(sampleQuestions, function(question) {
+      Questions.insert(question);
+    });
+
+  // }
+
+
+
 
 });

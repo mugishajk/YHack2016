@@ -1,0 +1,20 @@
+<template name="question">
+
+<div class="question well well-lg" data-id="{{ _id }}">
+    
+    <h3>{{ question }}</h3>
+    <span class="text">Q_ID: {{ index }}</span>
+    <span class="text">Answer: {{ answer }}</span>
+    <span class="text">Reason: {{ reason }}</span>
+
+<!--     {{ #each indexedArray choices }}
+        <a href="#" class="vote btn btn-primary btn-block" data-id="{{ _index }}">
+            <span class="votes pull-right">{{ question }}</span>
+            <span class="votes pull-right">{{ reason }}</span>
+            <span class="text">{{ mu }}</span>
+            <span class="text">{{ sigma }}</span>
+        </a>
+    {{ /each }} -->
+    
+</div>
+</template>
