@@ -1,0 +1,19 @@
+<body>
+
+  <!-- PULL IN THE NEWS CREATION FORM -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        {{ >newsForm }}
+      </div>
+    </div>
+  </div>  
+
+  <!-- LOOP OVER NEWS AND SHOW EACH -->
+  <div class="news">
+      {{ #each news }}
+          {{ >new }}
+      {{ /each }}
+  </div>
+
+</body>
