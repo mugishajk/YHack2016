@@ -70,8 +70,8 @@ function collect_params(interval, total_news) {
     //}
 
     // news_index = random.sample(range(0,30), total_news)
-    var news_index_mean = [0.01,-0.04,-0.02,-0.01,0.05,-0.03,-0.01,-0.07,0.005];
-     var news_index_sigma =  [0.01,0.02,0.01,0.005,0.02,0.02,0.005,0.04,0.005];
+    var news_index_mean = [-0.04,0.4,-0.02,-0.01,0.05,-0.03,-0.01,-0.07,0.005];
+     var news_index_sigma =  [0.01,0.12,0.01,0.005,0.02,0.02,0.005,0.04,0.005];
 
 
     var mean = [];
@@ -230,12 +230,12 @@ function main() {
     //price_list = [GBMpath(interval[0], init_price, mean[0], sigma[0], 0.5)]
     var price_list = [init_price];
     var price_sub_list;
-    for (var i=0; i < interval.length; i++) {
-      price_sub_list = randomPath(interval[0], mean[0], sigma[0], init_price);
-      
-      for (var j=0; j< price_sub_list.length; j++)
-        price_list.push(price_sub_list[j]);
-    }
+    price_sub_list = randomPath(interval[0], mean[0], sigma[0], init_price);
+    
+    for (var j=0; j< price_sub_list.length; j++)
+      price_list.push(price_sub_list[j]);
+    console.log("ggggg");
+    
 
     // [randomPath(interval[0], mean[0], sigma[0], init_price)];
     init_price=price_list[price_list.length-1];
