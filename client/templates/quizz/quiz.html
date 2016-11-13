@@ -1,8 +1,25 @@
 <template name="quiz">
 <h1>Quiz</h1>
-{{>question}}
+{{#each questions}}
+{{> questionT}}
+{{/each}}
 </template>
-<template name="question">
-  <div id="question"></div>
-  <div id="result" style="display:none"></div>
+<template name="questionT">
+  <h1>YO {{question}}</h1>
+  <!-- <div id="firstPart" > -->
+
+  <!-- <div id="question" >
+    <p>{{question}}</p>
+  </div> -->
+  <!-- <div id="choices">
+    {{#each choices}}
+
+    {{/each}}
+    </div>
+
+</div>
+  <div id="result" style="display:none">
+    {{answer}}
+    {{explanation}}
+  </div> -->
 </template>

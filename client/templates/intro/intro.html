@@ -1,43 +1,65 @@
 <template name="intro">
-  <a id="leftArrow" href="url">
-    <img src="images/icons/back_128.png" class="img" alt="" />
-  </a>
-   <div>
-    <div id="introHolder">
-      {{> introPart1}}
-    </div>
-    <div>
-      <!--The 3 dots that show whats up-->
-    </div>
-  </div>
-  <a id="rightArrow" href="url">
-    <img src="images/icons/next_128.png" class="img" style="width:256px; height:128px;" alt="" />
-  </a>
+  <table>
+    <tr>
+      <td>
+        <label id="leftArrow"  >
+          <img src="images/icons/back_128.png" class="img" style="width:30%; height:15%;" alt="" />
+        </label>
+      </td>
+      <td>
+        <tr>
+        <div id="part1"  style="display:none">
+          {{>introPart1}}
+        </div>
+        <div id="part2"  style="display:none">
+          {{>introPart2}}
+        </div>
+        <div id="part3"  style="display:none">
+          {{>introPart3}}
+        </div>
+      </tr>
+      <tr class="text-center">
+          {{#if holder}}
+          <button id="toLesson" class="myBtn">Lets Start !</button>
+          {{/if}}
+      </tr>
+      </td>
+
+      <tr>
+        <label id="rightArrow"  >
+          <img src="images/icons/next_128.png" class="img" style="width:30%; height:15%;" alt="" />
+        </label>
+      </tr>
+    </tr>
+
+  </table>
+
+
 
 </template>
 <template name="introPart1">
-  <p>Welcome to Finnder! Here you will learn
+  <p class="theText">Welcome to Finnder! Here you will learn
     how to become an investor with no prior
     experience!
   </p>
-  <p>We'll teach you the basics,and quiz you on them.
+  <p class="theText">We'll teach you the basics,and quiz you on them.
     Then,we'll tell you what you got wrong and how to
     avoid these mistakes in the future.
   </p>
-  <p>
+  <p class="theText">
    Lastly, we'll put you in a stock simulation to apply
     your knowledge!
   </p>
 </template>
 <template name="introPart2">
-  <p>
+  <p class="theText">
     You will start with $100 to invest in the simulation,
      and you will get $50 for every questions you get right!
   </p>
   <!--Some square ?-->
 </template>
 <template name="introPart3">
-  <p>
+  <p class="theText">
     You can use the menu button at the top right to navigate
     between different lessons and to exit the stock simulation.
   </p>

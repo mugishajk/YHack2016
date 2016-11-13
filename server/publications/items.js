@@ -1,15 +1,32 @@
 Meteor.publishComposite("items", function() {
-  return {
-    find: function() {
-      return Items.find({});
+    return {
+        find: function() {
+            return Items.find({});
+        }
+
     }
-    // ,
-    // children: [
-    //   {
-    //     find: function(item) {
-    //       return [];
-    //     }
-    //   }
-    // ]
-  }
+});
+Meteor.publishComposite("news", function() {
+    return {
+        find: function() {
+            return Items.find({});
+        }
+
+    }
+});
+Meteor.publishComposite("questions", function() {
+    return {
+        find: function() {
+            return Items.find({});
+        }
+
+    }
+});
+Meteor.publishComposite("content", function() {
+    return {
+        find: function() {
+            return Items.find({});
+        }
+
+    }
 });
