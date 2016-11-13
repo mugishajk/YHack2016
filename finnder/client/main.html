@@ -1,14 +1,19 @@
 <head>
   <title>finnder</title>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.7.0/math.min.js"> </script>
+  <script src="graph.js"></script>
+
 </head>
 
 <body>
   <h1>Welcome to Finnder!</h1>
-
   {{> hello}}
   {{> info}}
 
-
+  <canvas id="updating-chart" width="1000" height="700"></canvas>
 </body>
 
 <template name="hello">
