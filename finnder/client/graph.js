@@ -10,6 +10,22 @@ var last_price = 1000;
 //TODO, declare a nj var pointing to numjs library
 // var nj = require('numjs');
 
+
+function unrealizedPnL(){
+   
+   //get current unrealized profit
+   var unrealizedPnL = parseFloat(document.getElementById("unrealized").innerHTML);
+   var averagecost = parseFloat(document.getElementById("averagecost").innerHTML);
+   var currentposition = parseInt(document.getElementById("position").innerHTML);
+   var marketprice = parseFloat(document.getElementById("marketprice").innerHTML);
+   
+   //whenever market ticks, update the unrealized PnL
+   var currentUnrealized = currentposition * (marketprice - averagecost);
+   document.getElementById("unrealized").innerHTML = currentUnrealized.toFixed(2);
+
+}
+
+
 // generate random integer from x1, x2
 function generateInterval(min, max) {
     // return Math.floor(Math.random() * (max - min + 1)) + min;  
@@ -58,15 +74,16 @@ function randomNewsInterval(time_interval_list, price_list, news_end_time, mean,
 
 function collect_params(interval, total_news) {
     
-    // Database ###################
-    // news_index = [];
+    //Database ###################
+    var news_index = [];
 
-    // generate news index
-   //for (var i=0; i < total_news.length; i++) {
-    //    news_index.push(generateInterval(0, 30));
-    //}
+    //generate news index
+   for (var i=0; i < total_news.length; i++) {
+       news_index.push(generateInterval(0, 23));
+    }
+   
+    //var news_index = random.sample(range(0,23), total_news);
 
-    // news_index = random.sample(range(0,30), total_news)
     var news_index_mean = [-0.04,0.4,-0.02,-0.01,0.05,-0.03,-0.01,-0.07,0.005,-0.03];
     var news_index_sigma =  [0.025,0.12,0.01,0.005,0.02,0.02,0.005,0.04,0.005,0.015];
 
@@ -89,7 +106,6 @@ function collect_params(interval, total_news) {
     
     var return_list = [mean,sigma];
     return return_list;
-
 }
 
 
@@ -192,6 +208,11 @@ function main() {
         interval.push(generateInterval(interval[interval.length-1],interval[interval.length-1] + iterative_range)) ;      
         iterate = iterate + 1;
     }
+    console.log("haha" + interval[interval.length-1]);
+    if (interval[interval.length-1] < simulation_time) {
+      console.log("haha" + interval[interval.length-1]);
+      interval.push(simulation_time+1); 
+    }
 
     // collect mean, sigma
 
@@ -206,7 +227,7 @@ function main() {
     for (var i = 0; i < mean.length; i++) 
       {console.log(mean[i]);
         console.log(sigma[i]);
-  }
+      }
  
 
     console.log(mean.length);
@@ -361,9 +382,16 @@ setInterval(function(){
 
       // var y = Math.random() * 300;
 
+
+
+  if(x == null)
+    return;    
+
   if (point_ctr <= simulation_time) {
       myLiveChart.addData([x], Math.round(point_ctr));
       point_ctr++;
+      document.getElementById("marketprice").innerHTML =x.toFixed(2);
+      unrealizedPnL();
   }
   else
   {
