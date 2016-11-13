@@ -1,0 +1,152 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Finnder Stock Simulator</title>
+  <style>
+/*    .goright{
+      float:right;
+    }*/
+  </style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.7.0/math.min.js"> </script>
+
+<!-- <script src="bower_components/numjs/dist/numjs.min.js"></script> -->
+<!-- <script src="buttons.js"></script> -->
+<script src="graph.js"></script>
+
+<script>
+function sell(){
+    
+    //get current position
+    var currentposition = parseInt(document.getElementById("position").innerHTML);
+    var size = document.getElementById("size").value;
+    
+    if (size != "" && size != "0" && size > "0"){
+        
+        var marketprice = parseFloat(document.getElementById("marketprice").innerHTML);
+        var realizedPnL = parseFloat(document.getElementById("realized").innerHTML);
+        
+        //consider short selling:
+        if (currentposition == "0"){
+            //negative position
+            document.getElementById("averagecost").innerHTML = marketprice;
+        }
+        else{
+            //get the current average cost prior to purchase and the unrealized pnl
+            var averagecost = parseFloat(document.getElementById("averagecost").innerHTML);
+      var unrealizedPnL = parseFloat(document.getElementById("unrealized").innerHTML) - (marketprice - averagecost) * size;
+            document.getElementById("realized").innerHTML = (realizedPnL + size * (marketprice-averagecost)).toFixed(2);
+        }
+    
+        //update current position after the purchase
+        document.getElementById("position").innerHTML = parseInt(currentposition) - parseInt(size);
+    }
+    else
+        document.getElementById("size").value = 0;
+}
+
+function buy(){
+    
+    //get current position
+    var currentposition = parseInt(document.getElementById("position").innerHTML);
+    var size = document.getElementById("size").value;
+    
+    if (size != "" && size != "0" && size > "0"){
+        
+        //get the current average cost prior to purchase and the unrealized pnl
+        var averagecost = parseFloat(document.getElementById("averagecost").innerHTML);
+        var realizedPnL = parseFloat(document.getElementById("realized").innerHTML);
+        var marketprice = parseFloat(document.getElementById("marketprice").innerHTML);
+        
+        //cover short trades
+        if (currentposition < "0"){
+            var unrealizedPnL = parseFloat(document.getElementById("unrealized").innerHTML);
+            document.getElementById("realized").innerHTML = (realizedPnL + size * (averagecost - marketprice)).toFixed(2);  
+            //document.getElementById("unrealized").innerHTML = unrealizedPnL - size * (averagecost - marketprice);
+            
+        }
+        
+        //need to retrieve current market price, at least capture the interval[i] in order to match a price by dictionary
+        var newaveragecost = parseFloat(Math.abs(averagecost * currentposition) + (size * marketprice))/(parseInt(Math.abs(currentposition)) + parseInt(size)).toFixed(2);
+        
+        //update current position after the purchase
+        document.getElementById("position").innerHTML = parseInt(currentposition) + parseInt(size);
+        document.getElementById("averagecost").innerHTML = newaveragecost.toFixed(2);
+    }
+    else
+        document.getElementById("size").value = 0;
+ 
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+  <h1>SPX-TURBO-500 INDEX Stock Simulation Price Path</h1>
+  <div class = "row">
+    <div class ="col-lg-4">
+      <p>MARKET PRICE:</p>
+      <p id = "marketprice">1000</p>
+      <span style="display: inline; float: left;">
+        <button onclick="buy()" class="btn btn-lg btn-success">BUY</button>
+        <button onclick="sell()" class="btn btn-lg btn-danger">SELL</button>
+        <br/>
+        <form class="form-group">
+          Size per Trade: <input class="form-control" type = "number" id= "size" min = "0"><br> 
+        </form>
+      </span>
+      <br/><br/>
+    </div>
+    <div class ="col-lg-8">
+        <table class="table table-bordered">
+          <tr>
+            <td>SPX HOLDINGS</td>
+            <td>AVERAGE COST</td>
+            <td>Unrealized PnL</td>
+            <td>Realized PnL</td>
+          </tr>
+          <tr>
+            <td><p id = "position">0</p></td>
+            <td><p id = "averagecost">0</p></td>
+            <td><p id = "unrealized">0</p></td>
+            <td><p id = "realized">0</p></td>
+          </tr>
+        </table>
+
+    </div>
+  </div>
+
+
+  
+    <div class="row">
+      <div class="col-md-8">
+        <canvas id="updating-chart" width="1000" height="700"></canvas>
+      </div>
+      <div class="col-md-4">
+          <table class="table table-striped" id="news">
+             <tbody>
+        <!-- <tr><td></td></tr> -->
+        </tbody>
+
+          </table>
+          <!-- <div id="news"></div> -->
+      </div>
+   </div> 
+
+</div>
+ 
+</body>
+
+</html>

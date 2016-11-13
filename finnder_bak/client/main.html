@@ -1,0 +1,60 @@
+<!-- <!DOCTYPE html> -->
+<!-- <html> -->
+<head>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <style>
+    .goright{
+      float:right;
+    }
+    
+  </style>
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.7.0/math.min.js"> </script>
+
+<!-- <script src="bower_components/numjs/dist/numjs.min.js"></script> -->
+
+<script src="graph.js"></script>
+<!-- <script src="getnews.js"></script> -->
+<!-- <script src="graph_client.js"></script> -->
+<script src="buttons.js"></script>
+
+</head>
+<body>
+
+
+  <h1>SPX Stock Simulation Price Path</h1>
+  <div class = "goright">
+    <pre>MARKET PRICE:</pre>
+    <p id = "marketprice">1000</p>
+    <span style="display: inline; float: left;">
+      <button onclick="buy()">BUY</button>
+      <button onclick="sell()">SELL</button>
+      <form>
+        Size per Trade: <input type = "number" id= "size" min = "0"><br> 
+      </form>
+    </span>
+    <br/><br/>
+    <table border = "1">
+      <tr>
+        <td>SPX HOLDINGS</td>
+        <td>AVERAGE COST</td>
+        <td>Unrealized PnL</td>
+        <td>Realized PnL</td>
+      </tr>
+      <tr>
+        <td><p id = "position">0</p></td>
+        <td><p id = "averagecost">0</p></td>
+        <td><p id = "unrealized">0</p></td>
+        <td><p id = "realized">0</p></td>
+      </tr>
+    </table>
+  </div>
+  
+    <canvas id="updating-chart" width="1000" height="700"></canvas>
+ 
+ 
+</body>
+<!-- </html> -->
