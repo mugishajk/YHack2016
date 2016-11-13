@@ -1,7 +1,7 @@
 'use strict'
 
 //duration of the simulation
-var simulation_time = 300;
+var simulation_time = 200;
 //starting price
 var init_price = 1000;
 var plot_ctr = 0;
@@ -57,6 +57,8 @@ function randomNewsInterval(time_interval_list, price_list, news_end_time, mean,
 
 
 function collect_params(interval, total_news) {
+    
+    // Database ###################
     // news_index = [];
 
     // generate news index
@@ -65,9 +67,8 @@ function collect_params(interval, total_news) {
     //}
 
     // news_index = random.sample(range(0,30), total_news)
-    var news_index_mean = [-0.04,0.4,-0.02,-0.01,0.05,-0.03,-0.01,-0.07,0.005];
-     var news_index_sigma =  [0.025,0.12,0.01,0.005,0.02,0.02,0.005,0.04,0.005];
-
+    var news_index_mean = [-0.04,0.4,-0.02,-0.01,0.05,-0.03,-0.01,-0.07,0.005,-0.03];
+    var news_index_sigma =  [0.025,0.12,0.01,0.005,0.02,0.02,0.005,0.04,0.005,0.015];
 
     var mean = [];
     var sigma = [];
@@ -175,7 +176,7 @@ function main() {
     console.log ("initiate trading sequence...");
     
     //check how many news to be generated for the program
-    var number_of_news = generateInterval(5, 9);
+    var number_of_news = generateInterval(7, 10);
     //number_of_noise_news = generateInterval(6, 10);
     var total_news = number_of_news;
     var news_start_time = 30;
@@ -257,7 +258,9 @@ function main() {
     for (var i=0; i < price_list.length; i++) {
       console.log(price_list[i]);
   }
-
+  console.log("LENGTH");
+  console.log(price_list.length);
+  console.log(interval[interval.length-1]);
   return price_list;
 }
 
@@ -358,9 +361,13 @@ setInterval(function(){
 
       // var y = Math.random() * 300;
 
-  if (point_ctr < simulation_time) {
-      point_ctr++;
+  if (point_ctr <= simulation_time) {
       myLiveChart.addData([x], Math.round(point_ctr));
+      point_ctr++;
+  }
+  else
+  {
+    return;
   }
 
   if (point_ctr >= 20) {
@@ -371,7 +378,7 @@ setInterval(function(){
 
   // Remove the first point so we dont just add values forever
   // myLiveChart.removeData();
-}, 1000);
+}, 100);
 });
 
 
